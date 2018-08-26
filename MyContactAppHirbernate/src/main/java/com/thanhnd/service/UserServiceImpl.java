@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         Query query = session.createQuery("SELECT COUNT(u.loginName) FROM User u WHERE u.loginName = :loginName ");
         query.setParameter("loginName", username);
 
-        Long result = (Long) query.uniqueResult();
+        Long result = (Long) query.getSingleResult();
         if (result == 1) {
             return false;
         } else {
