@@ -31,6 +31,7 @@ public class MyInterceptor implements HandlerInterceptor {
         guest.add("pageNotFound");
         guest.add("registerForm");
         guest.add("registerProcess");
+        guest.add("checkUsername");
     }
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -43,7 +44,7 @@ public class MyInterceptor implements HandlerInterceptor {
         }
         if (session == null || session.getAttribute("USER") == null) {
             if (!guest.contains(mainResource)) {
-                response.sendRedirect(request.getContextPath()+"/index");
+                response.sendRedirect(request.getContextPath() + "/index");
                 return false;
             }
         } else {
@@ -51,17 +52,17 @@ public class MyInterceptor implements HandlerInterceptor {
             if (user.getRole() == UserService.ROLE_ADMIN) {
                 int index = mainResource.indexOf("admin");
                 if (index != 0 && !guest.contains(mainResource)) {
-                    response.sendRedirect(request.getContextPath()+"/pageNotFound");
+                    response.sendRedirect(request.getContextPath() + "/pageNotFound");
                     return false;
                 }
             } else if (user.getRole() == UserService.ROLE_USER) {
                 int index = mainResource.indexOf("user");
                 if (index != 0 && !guest.contains(mainResource)) {
-                    response.sendRedirect(request.getContextPath()+"/pageNotFound");
+                    response.sendRedirect(request.getContextPath() + "/pageNotFound");
                     return false;
                 }
             } else {
-                response.sendRedirect(request.getContextPath()+"/pageNotFound");
+                response.sendRedirect(request.getContextPath() + "/pageNotFound");
                 return false;
             }
         }
