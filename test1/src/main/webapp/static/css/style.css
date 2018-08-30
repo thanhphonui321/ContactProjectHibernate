@@ -9,5 +9,9 @@ body{
     color: #0000FF;
 }
 .table_scroll{
-    overflow: scroll;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    overflow-x:auto;
 }
