@@ -8,3 +8,6 @@ body{
 .success{
     color: #0000FF;
 }
+.table_scroll{
+    overflow: scroll;
+}
