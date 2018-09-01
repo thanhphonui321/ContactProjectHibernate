@@ -43,137 +43,134 @@
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+        <!--my Css-->
+        <link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet" type="text/css"/>
+        <script>
+        </script>
     </head>
     <body>
+        <!--leftPanel-->
+        <jsp:include page="include/leftPanel.jsp"/>  
+        <!--het leftpanel-->
+        <!--rightpanel-->
+        <div id="right-panel" class="right-panel">
+
+            <!--header va tieu de-->
+            <jsp:include page="include/header.jsp"/>  
+            <!--het header va tieu de-->
 
 
-        <jsp:include page="include/userMenu.jsp"/>  
+            <div class="content mt-3">
+                <!--content-->
+                <div class="form-inline">
+                    <form class="search-form" action="searchContact" method="get">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search" name="searchValue" value="${param.searchValue}" >
+                        <button><i class="fa fa-search"></i></button>
+                        <!--<input type="submit" value="Search" />-->   
+                    </form>
+                </div>
+                <c:if test="${param.act eq 'saved'}">
+                    <p class="success">Save contact successfully</p>
+                </c:if>
+                <c:if test="${param.act eq 'deleted'}">
+                    <p class="success">Delete contact successfully</p>
+                </c:if>
+                <c:if test="${not empty err}">
+                    <p class="success">${err}</p>
+                </c:if>
 
-        <div class="form-inline">
-            <form class="search-form" action="searchContact" method="get">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search" name="searchValue" value="${param.searchValue}" >
-                <button><i class="fa fa-search"></i></button>
-                <!--<input type="submit" value="Search" />-->   
-            </form>
+                <c:if test="${not empty listContact}">
+                    <div style="overflow-x:auto;"> 
+                        <table class="table table-striped table_scroll">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Address</th>
+                                    <th>
+                                        <a href="#" id="id_submitFormDelelteAll">DELETE</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <form action="multipleDelete" method="post" id="id_FormDeleteAll">
+                                <c:forEach items="${listContact}" var="row" varStatus="counter">
+                                    <tr>
+                                        <s:url value="/user/prepare_edit" var="edit_link">
+                                            <s:param name="contactId" value="${row.contactId}"/>
+                                        </s:url>
+                                        <th scope="row"><a href="${edit_link}">${counter.count}</a>
+                                        </th>
+                                        <td>
+                                            ${row.name}
+                                        </td>
+                                        <td>
+                                            ${row.phone}
+                                        </td>
+                                        <td>
+                                            ${row.email}
+                                        </td>
+                                        <td>
+                                            ${row.address}
+                                        </td>
+                                        <td><input type="checkbox" name="mulDelValue" value="${row.contactId}"/></td>
+                                    </tr>
+                                </c:forEach>
+                            </form>
+                            </tbody>
+                        </table>
+                    </div>
+                </c:if>
+
+                <c:if test="${empty listContact}">
+                    <h3>No contact found</h3>
+                </c:if>      
+                ${sessionScope.USER.name}
+                <!--het content-->
+            </div>
+
+
         </div>
-        <c:if test="${param.act eq 'saved'}">
-            <p class="success">Save contact successfully</p>
-        </c:if>
-        <c:if test="${param.act eq 'deleted'}">
-            <p class="success">Delete contact successfully</p>
-        </c:if>
-        <c:if test="${not empty err}">
-            <p class="success">${err}</p>
-        </c:if>
+        <!--het rightpanel-->
 
-        <!--/.col-->
-        <!--table-->
-        <c:if test="${not empty listContact}">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Address</th>
-                        <th>
-                            <a href="#" id="id_submitFormDelelteAll">DELETE</a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                <form action="multipleDelete" method="post" id="id_FormDeleteAll">
-                    <c:forEach items="${listContact}" var="row" varStatus="counter">
-                        <tr>
-                            <s:url value="/user/prepare_edit" var="edit_link">
-                                <s:param name="contactId" value="${row.contactId}"/>
-                            </s:url>
-                            <th scope="row"><a href="${edit_link}">${counter.count}</a>
-                            </th>
-                            <td>
-                                ${row.name}
-                            </td>
-                            <td>
-                                ${row.phone}
-                            </td>
-                            <td>
-                                ${row.email}
-                            </td>
-                            <td>
-                                ${row.address}
-                            </td>
-                            <td><input type="checkbox" name="mulDelValue" value="${row.contactId}"/></td>
-                        </tr>
-                    </c:forEach>
-                </form>
-            </tbody>
-        </table>
-    </c:if>
-
-    <c:if test="${empty listContact}">
-        <h3>No contact found</h3>
-    </c:if>
-    <!--/.col-->
+        <script src="${userRef_url}/assets/js/vendor/jquery-2.1.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="${userRef_url}/assets/js/plugins.js"></script>
+        <script src="${userRef_url}/assets/js/main.js"></script>
 
 
-    <!--/.col-->
+        <script src="${userRef_url}/assets/js/lib/chart-js/Chart.bundle.js"></script>
+        <script src="${userRef_url}/assets/js/dashboard.js"></script>
+        <script src="${userRef_url}/assets/js/widgets.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+        <script>
+            (function ($) {
+                "use strict";
+
+                jQuery('#vmap').vectorMap({
+                    map: 'world_en',
+                    backgroundColor: null,
+                    color: '#ffffff',
+                    hoverOpacity: 0.7,
+                    selectedColor: '#1de9b6',
+                    enableZoom: true,
+                    showTooltip: true,
+                    values: sample_data,
+                    scaleColors: ['#1de9b6', '#03a9f5'],
+                    normalizeFunction: 'polynomial'
+                });
+            })(jQuery);
+        </script>
+        <!--my Script-->
+        <script src="${userRef_url}/myJs/myJs.js">
+
+        </script>
 
 
-    <!--/.col-->
-
-
-
-
-
-
-
-
-
-
-
-</div> <!-- .content -->
-</div><!-- /#right-panel -->
-
-<!-- Right Panel -->
-
-<script src="${userRef_url}/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script src="${userRef_url}/assets/js/plugins.js"></script>
-<script src="${userRef_url}/assets/js/main.js"></script>
-
-
-<script src="${userRef_url}/assets/js/lib/chart-js/Chart.bundle.js"></script>
-<script src="${userRef_url}/assets/js/dashboard.js"></script>
-<script src="${userRef_url}/assets/js/widgets.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-<script>
-    (function ($) {
-        "use strict";
-
-        jQuery('#vmap').vectorMap({
-            map: 'world_en',
-            backgroundColor: null,
-            color: '#ffffff',
-            hoverOpacity: 0.7,
-            selectedColor: '#1de9b6',
-            enableZoom: true,
-            showTooltip: true,
-            values: sample_data,
-            scaleColors: ['#1de9b6', '#03a9f5'],
-            normalizeFunction: 'polynomial'
-        });
-    })(jQuery);
-</script>
-<!--my Script-->
-<script src="${userRef_url}/myJs/myJs.js">
-
-</script>
-
-
-</body>
+    </body>
 </html>

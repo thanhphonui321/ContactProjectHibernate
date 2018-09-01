@@ -69,6 +69,7 @@ public class ContactController {
     public String viewListContact(Model m, HttpSession session) {
         int userId = ((User) session.getAttribute("USER")).getUserId();
         m.addAttribute("listContact", contactService.findAllContact(userId));
+        System.out.println(((User)session.getAttribute("USER")).getRole());
         return "clist";
     }
 

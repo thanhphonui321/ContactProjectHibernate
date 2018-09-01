@@ -44,110 +44,105 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!--my Css-->
-        <link href="${pageContext.request.contextPath}/static/css/style1.css" rel="stylesheet" type="text/css"/>
-
+        <link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet" type="text/css"/>
+        <script>
+        </script>
     </head>
     <body>
+        <!--leftPanel-->
+        <jsp:include page="include/leftPanel.jsp"/>  
+        <!--het leftpanel-->
+        <!--rightpanel-->
+        <div id="right-panel" class="right-panel">
+
+            <!--header va tieu de-->
+            <jsp:include page="include/header.jsp"/>  
+            <!--het header va tieu de-->
 
 
-        <jsp:include page="include/userMenu.jsp"/>  
-        <c:if test="${not empty err}">
-            <p class="error">${err}</p>
-        </c:if>
-        <f:form action="saveContactProcess" modelAttribute="command" method="post">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="id_name">Name</label>
-                    <f:input path="name" cssClass="form-control" id="id_name" placeholder="Name"/>
-                    <f:errors path="name" cssClass="error"/>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="id_phone">Phone</label>
-                    <f:input path="phone" cssClass="form-control" id="id_phone" placeholder="Phone"/>
-                    <f:errors path="phone" cssClass="error"/>
-                </div>
+            <div class="content mt-3">
+                <!--content-->
+                <c:if test="${not empty err}">
+                    <p class="error">${err}</p>
+                </c:if>
+                <f:form action="saveContactProcess" modelAttribute="command" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="id_name">Name</label>
+                            <f:input path="name" cssClass="form-control" id="id_name" placeholder="Name"/>
+                            <f:errors path="name" cssClass="error"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="id_phone">Phone</label>
+                            <f:input path="phone" cssClass="form-control" id="id_phone" placeholder="Phone"/>
+                            <f:errors path="phone" cssClass="error"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="id_email">Email</label>
+                            <f:input path="email" cssClass="form-control" id="id_email" placeholder="Email"/>
+                            <f:errors path="email" cssClass="error"/>
+                        </div> 
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="id_address">Address</label>
+                            <f:textarea path="address" rows="3" cssClass="form-control" id="id_address" placeholder="Address"/>
+
+                        </div> 
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="id_Remark">Remark</label>
+                            <f:textarea path="remark" rows="3" cssClass="form-control" id="id_remark" placeholder="Remark"/>
+                        </div> 
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </f:form>
+                <!--het content-->
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="id_email">Email</label>
-                    <f:input path="email" cssClass="form-control" id="id_email" placeholder="Email"/>
-                    <f:errors path="email" cssClass="error"/>
-                </div> 
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="id_address">Address</label>
-                    <f:textarea path="address" rows="3" cssClass="form-control" id="id_address" placeholder="Address"/>
-
-                </div> 
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="id_Remark">Remark</label>
-                    <f:textarea path="remark" rows="3" cssClass="form-control" id="id_remark" placeholder="Remark"/>
-                </div> 
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </f:form>
-        <!--/.col-->
 
 
-        <!--/.col-->
+        </div>
+        <!--het rightpanel-->
+
+        <script src="${userRef_url}/assets/js/vendor/jquery-2.1.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="${userRef_url}/assets/js/plugins.js"></script>
+        <script src="${userRef_url}/assets/js/main.js"></script>
 
 
-        <!--/.col-->
+        <script src="${userRef_url}/assets/js/lib/chart-js/Chart.bundle.js"></script>
+        <script src="${userRef_url}/assets/js/dashboard.js"></script>
+        <script src="${userRef_url}/assets/js/widgets.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+        <script src="${userRef_url}/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+        <script>
+            (function ($) {
+                "use strict";
+
+                jQuery('#vmap').vectorMap({
+                    map: 'world_en',
+                    backgroundColor: null,
+                    color: '#ffffff',
+                    hoverOpacity: 0.7,
+                    selectedColor: '#1de9b6',
+                    enableZoom: true,
+                    showTooltip: true,
+                    values: sample_data,
+                    scaleColors: ['#1de9b6', '#03a9f5'],
+                    normalizeFunction: 'polynomial'
+                });
+            })(jQuery);
+        </script>
+        <!--my Script-->
+        <script src="${userRef_url}/myJs/myJs.js">
+
+        </script>
 
 
-
-
-
-
-
-
-
-
-
-    </div> <!-- .content -->
-</div><!-- /#right-panel -->
-
-<!-- Right Panel -->
-
-<script src="${userRef_url}/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script src="${userRef_url}/assets/js/plugins.js"></script>
-<script src="${userRef_url}/assets/js/main.js"></script>
-
-
-<script src="${userRef_url}/assets/js/lib/chart-js/Chart.bundle.js"></script>
-<script src="${userRef_url}/assets/js/dashboard.js"></script>
-<script src="${userRef_url}/assets/js/widgets.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-<script src="${userRef_url}/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-<script>
-    (function ($) {
-        "use strict";
-
-        jQuery('#vmap').vectorMap({
-            map: 'world_en',
-            backgroundColor: null,
-            color: '#ffffff',
-            hoverOpacity: 0.7,
-            selectedColor: '#1de9b6',
-            enableZoom: true,
-            showTooltip: true,
-            values: sample_data,
-            scaleColors: ['#1de9b6', '#03a9f5'],
-            normalizeFunction: 'polynomial'
-        });
-    })(jQuery);
-</script>
-<!--my Script-->
-<script src="${userRef_url}/myJs/myJs.js">
-
-</script>
-
-
-</body>
+    </body>
 </html>

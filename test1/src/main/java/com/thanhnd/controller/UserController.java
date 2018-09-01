@@ -55,7 +55,7 @@ public class UserController {
             } else {
                 if (user.getRole() == UserService.ROLE_ADMIN) {
                     session.setAttribute("USER", user);
-                    return "redirect:admin/dashboard";
+                    return "redirect:admin/vlist";
                 } else if (user.getRole() == UserService.ROLE_USER) {
                     session.setAttribute("USER", user);
                     return "redirect:user/clist";
