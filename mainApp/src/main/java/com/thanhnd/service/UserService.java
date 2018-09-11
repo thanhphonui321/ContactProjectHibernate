@@ -40,4 +40,5 @@ public interface UserService {
 	 */
 	public void changeStatusUser (int UserId, int status);
         public boolean checkUsername (String username);
+        public boolean checkEmail (String email);
 }

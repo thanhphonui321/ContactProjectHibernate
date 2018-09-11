@@ -1,22 +1,16 @@
 package com.thanhnd.controller;
 
 import com.thanhnd.command.LoginCommand;
-import com.thanhnd.command.UserCommand;
 import com.thanhnd.domain.User;
 import com.thanhnd.exception.BlockedUserException;
 import com.thanhnd.service.UserService;
-import java.util.Date;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.xml.ws.BindingType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,10 +71,18 @@ public class UserController {
             if (theBindingResult.hasErrors()){
                 return "registerForm";
             }
+            if (!userService.checkUsername(cmd.getLoginName())){
+                m.addAttribute("err", "This username already existed. Try another username !!!");
+                throw new Exception();
+            }
+            if (!userService.checkEmail(cmd.getEmail())){
+                m.addAttribute("err", "This email already existed. Try 'forgot password'");
+                throw new Exception();
+            }
             userService.register(cmd);
             return "redirect:index?act=reg";
         } catch (Exception e) {
-            m.addAttribute("err", "This username already existed. Try another username !!!");
+            e.printStackTrace();
             return "registerForm";
         }
     }

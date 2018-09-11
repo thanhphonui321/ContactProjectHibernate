@@ -26,7 +26,7 @@ public class User {
     private String phone;
     
     @Column(name = "email")
-    @Pattern(regexp = "(\\w+@\\w+([.]\\w+){1,2}){0,1}", message = "Enter a valid email")
+    @Pattern(regexp = "\\w+@\\w+([.]\\w+){1,2}", message = "Enter a valid email")
     private String email;
     
     @Column(name = "address")

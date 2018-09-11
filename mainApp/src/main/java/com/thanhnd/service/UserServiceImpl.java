@@ -81,4 +81,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
+    public boolean checkEmail(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT COUNT(u.email) FROM User u WHERE u.email = :email ");
+        query.setParameter("email", email);
+
+        Long result = (Long) query.getSingleResult();
+        if (result == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

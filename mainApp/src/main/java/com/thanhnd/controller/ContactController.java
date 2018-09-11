@@ -5,7 +5,6 @@
  */
 package com.thanhnd.controller;
 
-import com.thanhnd.command.ContactCommand;
 import com.thanhnd.domain.Contact;
 import com.thanhnd.domain.User;
 import com.thanhnd.service.ContactService;
