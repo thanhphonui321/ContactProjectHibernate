@@ -67,22 +67,25 @@ public class UserController {
     @RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
     public String processRegisterForm(Model m, @Valid @ModelAttribute("command") User cmd,
              BindingResult theBindingResult) {
+        String error = "";
         try {
+            
             if (theBindingResult.hasErrors()){
                 return "registerForm";
             }
             if (!userService.checkUsername(cmd.getLoginName())){
-                m.addAttribute("err", "This username already existed. Try another username !!!");
+                error = error+"This username already existed. Try another username !!!";
                 throw new Exception();
             }
             if (!userService.checkEmail(cmd.getEmail())){
-                m.addAttribute("err", "This email already existed. Try 'forgot password'");
+                error = error+"This email already existed. Try 'forgot password' !!!";
                 throw new Exception();
             }
             userService.register(cmd);
             return "redirect:index?act=reg";
         } catch (Exception e) {
             e.printStackTrace();
+            m.addAttribute("err", error);
             return "registerForm";
         }
     }

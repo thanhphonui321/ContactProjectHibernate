@@ -86,8 +86,10 @@ public class UserServiceImpl implements UserService {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("SELECT COUNT(u.email) FROM User u WHERE u.email = :email ");
         query.setParameter("email", email);
-
+//
         Long result = (Long) query.getSingleResult();
+        System.out.println(result);
+        System.out.println("Bo may test");
         if (result == 1) {
             return false;
         } else {
